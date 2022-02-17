@@ -17,7 +17,7 @@ public class HelpController {
     
     @ExceptionHandler({Exception.class})
     public String databaseError() {
-        return "error-view-name";
+        return "/error";
     }
     
 }

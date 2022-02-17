@@ -17,7 +17,7 @@ public class RecoveryPasswoordController {
     
     @ExceptionHandler({Exception.class})
     public String databaseError() {
-        return "helpers/error";
+        return "/error";
     }
     
 }

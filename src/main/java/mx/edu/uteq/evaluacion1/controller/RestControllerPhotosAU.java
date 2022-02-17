@@ -19,49 +19,49 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-@RequestMapping("/")
-public class RestControllerPhoto {
+@RequestMapping("/AU")
+public class RestControllerPhotosAU {
     
     @Autowired
     private IPhotosDao photoDao;
     
-    @GetMapping("/fotos")
+    @GetMapping("/photosAU")
     public List<Photo> list() {
-        return photoDao.findAll();
+        List<Photo> listPhoto = photoDao.findAll();
+        return listPhoto;
     }
     
-    
-    @GetMapping("/fotos/{id}")
+    @GetMapping("/photosAU/{id}")
     public Photo get(@PathVariable Long id) {
         return photoDao.findById(id).orElse(null);
     }
     
-    @PutMapping("/fotos/{id}")
-    public ResponseEntity<Photo> put(@PathVariable Long id, @RequestBody Photo photo) {
+    @PutMapping("/photosAU/edit/{id}")
+    public ResponseEntity<Photo> put(@PathVariable Long id, @RequestBody Photo photoAU) {
         
-        Photo currentPhoto = photoDao.findById(id).orElse(null);
+        Photo currentPhotoAU = photoDao.findById(id).orElse(null);
         
-        if (currentPhoto == null) {
-            return new ResponseEntity<>(currentPhoto, HttpStatus.NOT_FOUND);
+        if (currentPhotoAU == null) {
+            return new ResponseEntity<>(currentPhotoAU, HttpStatus.NOT_FOUND );
         }
         
-        currentPhoto.setTitle(photo.getTitle());
-        currentPhoto.setUrl(photo.getUrl());
-        currentPhoto.setStatus(true);
-        currentPhoto.setLastTime(new Date());
+        currentPhotoAU.setTitle(photoAU.getTitle());
+        currentPhotoAU.setUrl(photoAU.getUrl());
+        currentPhotoAU.setStatus(true);
+        currentPhotoAU.setLastTime(new Date());
         
-        Photo updatedPhoto = photoDao.save(currentPhoto);
-        HttpStatus generatedStatus = HttpStatus.CREATED;
+        Photo updatedPhoto = photoDao.save(currentPhotoAU);
         
-        return new ResponseEntity<>(updatedPhoto, generatedStatus);
+        HttpStatus statusUpdatedHttp = HttpStatus.CREATED;
+        return new ResponseEntity<>(updatedPhoto, statusUpdatedHttp);
     }
     
-    @PostMapping("/fotos")
+    @PostMapping("/photosAU/add")
     public ResponseEntity<Photo> post(@RequestBody Photo photo) {
         return new ResponseEntity<>(photoDao.save(photo), HttpStatus.CREATED);
     }
     
-    @DeleteMapping("/fotos/{id}")
+    @DeleteMapping("/photosAU/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         photoDao.deleteById(id);
         return new ResponseEntity<>("Deleted", HttpStatus.OK);

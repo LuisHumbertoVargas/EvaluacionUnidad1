@@ -4,6 +4,7 @@ package mx.edu.uteq.evaluacion1.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Controller
@@ -17,7 +18,7 @@ public class PhotosController {
     
     @ExceptionHandler({Exception.class})
     public String databaseError() {
-        return "/helpers/error";
+        return "/error";
     }
     
 }
